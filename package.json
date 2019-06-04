@@ -1,0 +1,33 @@
+{
+  "name": "mincreator",
+  "version": "2.0.0",
+  "description": "This is a program where you can download a file and get its minified version.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^3.0.11",
+    "electron-packager": "^13.1.1"
+  },
+  "scripts": {
+    "start": "cd app && npm run build-client && cd ../ && electron .",
+    "build-windows": "electron-packager . Mincreator --platform win32 --arch x64 --out ./dist/",
+    "build-linux": "electron-packager . Mincreator --platform linux --arch x64 --out ./dist/",
+    "build-macos": "electron-packager . Mincreator --platform darwin --arch x64 --out ./dist/",
+    "build-mas": "electron-packager . Mincreator --platform mas --arch x64 --out ./dist/"
+  },
+  "keywords": [
+    "Mincreator",
+    "minify",
+    "compress"
+  ],
+  "author": "David Ziarmand",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ziarmandhost/Mincreator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ziarmandhost/Mincreator/issues"
+  },
+  "homepage": "https://github.com/ziarmandhost/Mincreator#readme"
+}

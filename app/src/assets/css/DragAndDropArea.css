@@ -1,0 +1,29 @@
+#dnd {
+    background: #191919;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 50px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+#zone {
+    width: 50%;
+    height: 50%;
+    border: 3px dashed #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#zone>h1 {
+    font-family: Consolas;
+    font-size: 3vw;
+    color: #fff;
+    user-select: none;
+}
