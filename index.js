@@ -28,7 +28,7 @@ function createWindow () {
 
     win.setMenu(null);
 
-    win.webContents.openDevTools();
+    // win.webContents.openDevTools();
     win.loadFile('./app/build/index.html');
 
     ipcMain.on('minify-file', (event, arg) => {

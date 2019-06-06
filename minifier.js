@@ -45,7 +45,8 @@ class Minifier {
                     removeEmptyAttributes : true,
                     removeOptionalTags : true,
                     useShortDoctype : true,
-                    collapseWhitespace: true
+                    collapseWhitespace: true,
+                    decodeEntities : true
                 }));
             }
         });
@@ -82,7 +83,8 @@ class Minifier {
                         unused: true,
                         if_return: true,
                         join_vars: true,
-                        drop_console: true
+                        drop_console: true,
+                        passes : 2
                     }
                 });
 
