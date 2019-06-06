@@ -17,7 +17,7 @@ npm i && npm run start
 
 # How does the code become minified?
 
-#### HTML 
+### HTML 
 
 * unnecessary spaces are removed
 * removed all comments
@@ -32,7 +32,7 @@ npm i && npm run start
 + minified CSS in style elements and style attributes
 + minified JavaScript in script elements and event attributes
 
-#### CSS
+### CSS
 
 * unnecessary spaces are removed
 * removed all comments
@@ -45,7 +45,7 @@ npm i && npm run start
 * removed redefined styles
 * merge media queries
 
-#### JavaScript
+### JavaScript
 
 * unnecessary spaces are removed
 * removed all comments
