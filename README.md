@@ -1,7 +1,7 @@
 # Mincreator
 This is an electron app where you can upload a file and get its fully compressed version. Everything is very simple, you just need to select the file that you are going to minify and after that choose where you want to save the minified file.
 
-#Demo
+# Demo
 There you can see result of minifying :
 
 | File  | Before | After |
