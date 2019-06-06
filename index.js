@@ -1,5 +1,6 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
-const { Minifier } = require('./minifiers/main');
+const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const { Minifier } = require('./minifier');
+const fs = require('fs');
 
 let win = null;
 
@@ -31,11 +32,22 @@ function createWindow () {
     win.loadFile('./app/build/index.html');
 
     ipcMain.on('minify-file', (event, arg) => {
-        let minifier = new Minifier(arg);
+        new Minifier(arg).minifyByType(data => {
+            if (data.error)  event.sender.send('minified', {error : true, message : data.message});
+            else {
+                event.sender.send('minified', data);
+            }
+        });
+    });
 
-        console.log(minifier.minify());
+    ipcMain.on('save-file', (event, arg) => {
+        dialog.showSaveDialog({defaultPath : `${arg.title}.min.${arg.ext}`, filters : [{name: arg.mimeType, extensions: [arg.ext]}]}, fileName => {
+            if (fileName === undefined) return;
 
-        // event.reply('minified', 'pong')
+            fs.writeFile(fileName, arg.src, err => {
+                event.sender.send('saved', {error : !err});
+            });
+        });
     });
 
     win.on('closed', () => win = null);

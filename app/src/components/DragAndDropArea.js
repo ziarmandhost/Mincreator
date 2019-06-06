@@ -7,7 +7,9 @@ class DragAndDropArea extends Component {
 
         this.state = {
             supportedExt : [
-                "html", "css", "js"
+                "html", "htm", "xhtml", "xht",
+                "css",
+                "js"
             ]
         };
     }
@@ -17,32 +19,48 @@ class DragAndDropArea extends Component {
         input.type = 'file';
 
         input.onchange = () => {
-            console.log(input.files);
             let file = {
-                name : input.files[0].name.split('.')[0],
+                title : input.files[0].name.split('.')[0],
                 ext : input.files[0].name.split('.')[1],
                 size : input.files[0].size,
-                mimeType : input.files[0].type
+                mimeType : input.files[0].type,
+                path : input.files[0].path
             };
 
             if (file.size >= 50000000) {
                 alert("Error!\nA file larger than 50 MB!");
-                return;
+                return false;
             }
             else if (this.state.supportedExt.indexOf(file.ext) === -1) {
-                alert("Error!\nThis type of files is not yet supported!");
-                return;
+                alert("This type of files is not yet supported!");
+               return false;
             }
             else {
-                ipcRenderer.sendSync('minify-file', file);
+                ipcRenderer.send('minify-file', file);
 
-                // ipcRenderer.on('minified', (event, arg) => {
-                //     console.log(arg); //response
-                // });
+                ipcRenderer.on('minified', (event, arg) => {
+                    if (arg.error) {
+                        alert(`ERROR!\n${arg.message}`);
+                        return false;
+                    }
+                    else {
+                        file.src = arg;
+                        this.saveFile(file);
+                    }
+                });
             }
         };
 
         input.click();
+    };
+
+    saveFile = file => {
+        ipcRenderer.send('save-file', file);
+
+        ipcRenderer.on('saved', (event, arg) => {
+            arg ? alert("Saved!") : alert(`ERROR!\nThe problem with saving this file!`);
+            window.location.reload();
+        });
     };
 
     render () {
